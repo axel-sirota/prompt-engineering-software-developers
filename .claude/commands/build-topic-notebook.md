@@ -175,18 +175,20 @@ def build_customer_assistant(documents: list[str], query: str) -> str:
 1. Add exactly 5 cells (or fewer for the final batch)
 2. STOP IMMEDIATELY
 3. Run validation: `python validate_notebooks.py exercises/topic_<N>_<slug>/topic_<N>_<slug>.ipynb --type exercise`
-4. **After every 10 cells (i.e. after batches 2, 4, 6, ...): invoke `/save-state` before asking for approval.**
-   This snapshots progress so a context compaction mid-build does not lose work.
-   The trigger is cell count, not batch count: run save-state when the notebook reaches 10, 20, 30 cells.
+4. **UNCONDITIONAL /save-state rule**: whenever the notebook cell count crosses a multiple of 10
+   (reaches 10, 20, 30, ...), invoke the `/save-state` skill immediately. This fires regardless
+   of whether the user said "go until the end", "continue", or anything else. It is NOT optional
+   and is NOT skipped in continuous mode. Context compaction can happen at any time; save-state
+   ensures a new session can resume from exactly where the build was interrupted.
 5. Ask user: "I have added cells X-Y. How does it look? Should I continue?"
-6. DO NOT PROCEED until user says "continue", "yes", "good", or similar explicit approval
-7. After approval: add ONLY the next 5 cells, then STOP again
+   If the user previously gave blanket "go until end" approval, skip this question and continue -
+   but step 4 still fires unconditionally at every 10-cell boundary.
+6. After approval (or under blanket approval): add ONLY the next 5 cells, then return to step 1.
 
 ### Forbidden:
-- Adding 6+ cells without asking for approval
-- Treating "continue" as "do all remaining cells"
+- Adding 6+ cells in a single batch without approval (blanket "go" covers subsequent batches)
 - Skipping validation between batches
-- Skipping /save-state at the 10-cell and 20-cell checkpoints
+- Skipping /save-state at 10-cell boundaries for any reason, including "go until end" mode
 
 ### Notebook Write Pattern (CRITICAL FOR FILE SIZE):
 

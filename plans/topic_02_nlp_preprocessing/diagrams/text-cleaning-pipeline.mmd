@@ -1,0 +1,7 @@
+graph TD
+    A["Raw PDF text\nhyphenation, headers, noise"] --> B["Dehyphenate\nrejoin split words"]
+    B --> C["Remove headers/footers\nstrip page numbers, titles"]
+    C --> D["Collapse whitespace\nnormalize spaces and newlines"]
+    D --> E["Strip boilerplate\nremove repeated legal lines"]
+    E --> F["Normalize sentence breaks\nensure single space after period"]
+    F --> G["Clean text\nready for chunking"]

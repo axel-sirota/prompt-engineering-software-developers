@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+plans/topic_*.md
+# plans/TOPICS.md is tracked (status manifest)
+# TODOS.md and AUDIT.md are tracked (issue log)
+.claude/settings.local.json
+*.zip
+zips/
+progress.txt

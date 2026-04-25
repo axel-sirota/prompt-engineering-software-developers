@@ -1,0 +1,8 @@
+graph TD
+    A["S3 bucket\nbarclays-prompt-eng-data"] --> B["boto3 get_object\nreturns streaming body"]
+    B --> C["BytesIO buffer\nin-memory bytes"]
+    C --> D["fitz.open\nPyMuPDF opens PDF"]
+    D --> E["Iterate pages\nfor page in doc"]
+    E --> F["page.get_text\nraw text per page"]
+    F --> G["Join pages\n'\\n'.join(pages)"]
+    G --> H["Full document string\nready for cleaning"]

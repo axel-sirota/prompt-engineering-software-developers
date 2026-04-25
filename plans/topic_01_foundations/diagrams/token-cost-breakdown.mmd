@@ -1,0 +1,9 @@
+graph TD
+    A["API call completes"] --> B["response.usage"]
+    B --> C["prompt_tokens\ne.g. 320"]
+    B --> D["completion_tokens\ne.g. 150"]
+    C --> E["Input cost\n320 / 1000 x 0.0025\n= 0.000800 USD"]
+    D --> F["Output cost\n150 / 1000 x 0.0100\n= 0.001500 USD"]
+    E --> G["Total cost\n0.000800 + 0.001500\n= 0.002300 USD per call"]
+    F --> G
+    G --> H["At 1,000 calls/day\n= 2.30 USD/day\n= ~69 USD/month"]

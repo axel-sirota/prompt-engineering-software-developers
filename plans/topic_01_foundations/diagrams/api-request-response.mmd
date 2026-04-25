@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant P as Python client
+    participant S as OpenAI SDK
+    participant G as API gateway
+    participant M as GPT-4o model
+    P->>S: client.chat.completions.create(model, messages)
+    S->>G: HTTPS POST /v1/chat/completions + API key
+    G->>G: Authenticate key + route request
+    G->>M: Tokenized prompt
+    M->>M: Generate tokens one at a time
+    M->>G: Token stream
+    G->>S: JSON response object
+    S->>P: ChatCompletion object
+    Note over P: response.choices[0].message.content
+    Note over P: response.usage.prompt_tokens
+    Note over P: response.usage.completion_tokens
+    Note over P: response.choices[0].finish_reason

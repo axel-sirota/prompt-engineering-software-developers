@@ -1,0 +1,10 @@
+graph TD
+    A["Input text\n'What is the APR?'"] --> B["Tokenizer\nsplits into tokens"]
+    B --> C["Token IDs\n[1867, 318, 262, 317, 4805, 30]"]
+    C --> D["Transformer decoder\nGPT-4o"]
+    D --> E["Next-token prediction\nprobability over vocabulary"]
+    E --> F["Sample or argmax\ncontrolled by temperature"]
+    F --> G["New token appended\nto context"]
+    G --> H{Stop condition?}
+    H -->|No - keep generating| D
+    H -->|Yes - stop token or max_tokens| I["Final response text\nassembled from all tokens"]

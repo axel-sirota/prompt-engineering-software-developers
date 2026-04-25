@@ -175,14 +175,18 @@ def build_customer_assistant(documents: list[str], query: str) -> str:
 1. Add exactly 5 cells (or fewer for the final batch)
 2. STOP IMMEDIATELY
 3. Run validation: `python validate_notebooks.py exercises/topic_<N>_<slug>/topic_<N>_<slug>.ipynb --type exercise`
-4. Ask user: "I have added cells X-Y. How does it look? Should I continue?"
-5. DO NOT PROCEED until user says "continue", "yes", "good", or similar explicit approval
-6. After approval: add ONLY the next 5 cells, then STOP again
+4. **After every 10 cells (i.e. after batches 2, 4, 6, ...): invoke `/save-state` before asking for approval.**
+   This snapshots progress so a context compaction mid-build does not lose work.
+   The trigger is cell count, not batch count: run save-state when the notebook reaches 10, 20, 30 cells.
+5. Ask user: "I have added cells X-Y. How does it look? Should I continue?"
+6. DO NOT PROCEED until user says "continue", "yes", "good", or similar explicit approval
+7. After approval: add ONLY the next 5 cells, then STOP again
 
 ### Forbidden:
 - Adding 6+ cells without asking for approval
 - Treating "continue" as "do all remaining cells"
 - Skipping validation between batches
+- Skipping /save-state at the 10-cell and 20-cell checkpoints
 
 ### Notebook Write Pattern (CRITICAL FOR FILE SIZE):
 
@@ -321,6 +325,7 @@ if examples is None:
 5. Build EXERCISE notebook:
    - Add 5 cells
    - Run validation
+   - After every 10 cells: invoke /save-state before asking for approval
    - Show user and ask for approval
    - Repeat until complete
 6. Build SOLUTION notebook AFTER exercise is fully approved:

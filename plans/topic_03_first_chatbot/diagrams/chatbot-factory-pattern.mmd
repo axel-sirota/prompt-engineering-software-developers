@@ -1,0 +1,10 @@
+graph TD
+    A["create_chatbot(system_prompt, context)"]
+    A --> B["Builds messages list<br/>with system + context"]
+    A --> C["Returns chat() closure"]
+    C --> D["chat(user_message)"]
+    D --> E["Appends user message<br/>to history"]
+    E --> F["Calls OpenAI API<br/>with full history"]
+    F --> G["Appends assistant reply<br/>to history"]
+    G --> H["Returns reply string"]
+    B -->|"Captured in closure"| D

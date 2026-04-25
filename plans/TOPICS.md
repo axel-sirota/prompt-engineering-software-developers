@@ -90,7 +90,7 @@
 
 ## Topic 03 - Your First Chatbot
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 1
 - **Slug**: `topic_03_first_chatbot`
 - **Exercise**: `exercises/topic_03_first_chatbot/topic_03_first_chatbot.ipynb`
@@ -118,15 +118,15 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 3` to produce the plan
-- [ ] Run `/build-topic-notebook 3` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 3` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
 ## Topic 04 - Prompt Engineering
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 2
 - **Slug**: `topic_04_prompt_engineering`
 - **Exercise**: `exercises/topic_04_prompt_engineering/topic_04_prompt_engineering.ipynb`
@@ -155,7 +155,7 @@
 - openai, anthropic, json
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 4` to produce the plan
+- [x] Run `/run-research-topic 4` to produce the plan
 - [ ] Run `/build-topic-notebook 4` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -164,7 +164,7 @@
 
 ## Topic 05 - Conversation Memory
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 2
 - **Slug**: `topic_05_conversation_memory`
 - **Exercise**: `exercises/topic_05_conversation_memory/topic_05_conversation_memory.ipynb`
@@ -192,7 +192,7 @@
 - openai, anthropic
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 5` to produce the plan
+- [x] Run `/run-research-topic 5` to produce the plan
 - [ ] Run `/build-topic-notebook 5` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -201,7 +201,7 @@
 
 ## Topic 06 - RAG Foundations
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 2
 - **Slug**: `topic_06_rag_foundations`
 - **Exercise**: `exercises/topic_06_rag_foundations/topic_06_rag_foundations.ipynb`
@@ -230,7 +230,7 @@
 - openai, chromadb, numpy
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 6` to produce the plan
+- [x] Run `/run-research-topic 6` to produce the plan
 - [ ] Run `/build-topic-notebook 6` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -360,9 +360,9 @@
 | 01 | Foundations | Day 1 | planned |
 | 02 | NLP Preprocessing for RAG | Day 1 | planned |
 | 03 | Your First Chatbot | Day 1 | planned |
-| 04 | Prompt Engineering | Day 2 | not_started |
-| 05 | Conversation Memory | Day 2 | not_started |
-| 06 | RAG Foundations | Day 2 | not_started |
+| 04 | Prompt Engineering | Day 2 | planned |
+| 05 | Conversation Memory | Day 2 | planned |
+| 06 | RAG Foundations | Day 2 | planned |
 | 07 | Advanced RAG and Web Search | Day 3 | not_started |
 | 08 | Ethical Guardrails | Day 3 | not_started |
 | 09 | Capstone | Day 3 | not_started |

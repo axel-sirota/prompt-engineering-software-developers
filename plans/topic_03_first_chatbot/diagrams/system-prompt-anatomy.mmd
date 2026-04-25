@@ -1,0 +1,11 @@
+graph TD
+    SP["System Prompt"]
+    SP --> P["1. Persona Block<br/>Who the assistant is<br/>Tone: formal but warm"]
+    SP --> C["2. Constraint Block<br/>What it must NOT do<br/>Scope + advice boundary"]
+    SP --> X["3. Context Block<br/>Where to find answers<br/>Product info injected here"]
+    SP --> F["4. Format Block<br/>How to structure answers<br/>Length, lists, escalation"]
+
+    P -->|"Sets"| R1["On-brand voice"]
+    C -->|"Prevents"| R2["Scope drift + FCA violations"]
+    X -->|"Grounds"| R3["Factual product answers"]
+    F -->|"Controls"| R4["Response shape"]

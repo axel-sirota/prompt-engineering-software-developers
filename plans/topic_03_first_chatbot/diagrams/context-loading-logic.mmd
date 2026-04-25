@@ -1,0 +1,7 @@
+flowchart LR
+    A["build_barclays_chatbot()"] --> B{"chunks available\nfrom Topic 2?"}
+    B -->|"Yes"| C["Join chunks into\ncontext string"]
+    B -->|"No"| D["Use PRODUCT_SNIPPET\nfallback text"]
+    C --> E["create_chatbot(\nBARCLAYS_SYSTEM_PROMPT,\ncontext)"]
+    D --> E
+    E --> F["Returns chat() closure\nready for queries"]

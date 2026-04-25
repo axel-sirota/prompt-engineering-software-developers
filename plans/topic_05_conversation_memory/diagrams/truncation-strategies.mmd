@@ -1,0 +1,29 @@
+graph TB
+    Input["history (8 messages, ~3500 tokens)<br/>[system_msg, u1, a1, u2, a2, u3, a3, u4]<br/>BUDGET: 1500 tokens"]
+
+    Input --> Naive
+    Input --> Safe
+
+    subgraph Naive["NAIVE: history[1:] - drops oldest including system"]
+        direction TB
+        N1["Step 1: drop history[0]<br/>history[1:] = [u1, a1, u2, a2, u3, a3, u4]<br/>~3300 tokens - still over budget"]
+        N1 --> N2["Step 2: drop again<br/>[a1, u2, a2, u3, a3, u4]<br/>~2900 tokens - still over"]
+        N2 --> N3["...keep dropping from the front..."]
+        N3 --> N4["Final: [u3, a3, u4]<br/>~1400 tokens - fits<br/><b>SYSTEM PROMPT GONE</b>"]
+        N4 --> NX["FAIL: assistant lost its persona<br/>No more 'Barclays product expert'<br/>Generic chatbot, no guardrails"]
+    end
+
+    subgraph Safe["SAFE: [system_msg] + drop oldest non-system"]
+        direction TB
+        S1["Step 1: peel off system_msg<br/>conversation = [u1, a1, u2, a2, u3, a3, u4]<br/>system kept aside"]
+        S1 --> S2["Step 2: drop conversation[0]<br/>[a1, u2, a2, u3, a3, u4]<br/>~3000 tokens with system - still over"]
+        S2 --> S3["...keep popping oldest non-system..."]
+        S3 --> S4["Final: [system_msg] + [u3, a3, u4]<br/>~1450 tokens - fits<br/><b>SYSTEM PROMPT PRESERVED</b>"]
+        S4 --> SOK["SUCCESS: assistant keeps its persona<br/>Still a Barclays product expert<br/>Guardrails intact, recent context kept"]
+    end
+
+    style NX fill:#ffcccc,stroke:#cc0000,stroke-width:3px
+    style SOK fill:#ccffcc,stroke:#006600,stroke-width:3px
+    style N4 fill:#ffe5e5
+    style S4 fill:#e5ffe5
+    style Input fill:#fff5cc,stroke:#cc8800,stroke-width:2px

@@ -1,0 +1,11 @@
+graph TD
+    RF[response_format] --> T[type: json_schema]
+    RF --> JS[json_schema]
+    JS --> N[name: classification_result]
+    JS --> ST[strict: True]
+    JS --> SC[schema]
+    SC --> I[intent - enum of 5 categories]
+    SC --> CF[confidence - enum: high, medium, low]
+    SC --> RA[rationale - string]
+    SC --> RQ[required: all three fields]
+    SC --> AP[additionalProperties: False]

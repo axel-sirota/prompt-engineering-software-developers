@@ -1,0 +1,10 @@
+graph TD
+    ML[messages list] --> SM[system message]
+    ML --> UM[user message]
+    SM --> E1[Example: statements query - account_inquiry]
+    SM --> E2[Example: card declined - card_services]
+    SM --> E3[Example: ISA question - investments]
+    UM --> LQ[live query from customer]
+    SM --> GPT[gpt-4o model]
+    UM --> GPT
+    GPT --> OUT[classification result]

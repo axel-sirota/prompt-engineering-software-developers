@@ -164,7 +164,7 @@
 
 ## Topic 05 - Conversation Memory
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 2
 - **Slug**: `topic_05_conversation_memory`
 - **Exercise**: `exercises/topic_05_conversation_memory/topic_05_conversation_memory.ipynb`
@@ -193,9 +193,9 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 5` to produce the plan
-- [ ] Run `/build-topic-notebook 5` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 5` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
@@ -357,11 +357,11 @@
 
 | # | Topic | Day | Status |
 |---|-------|-----|--------|
-| 01 | Foundations | Day 1 | planned |
-| 02 | NLP Preprocessing for RAG | Day 1 | planned |
-| 03 | Your First Chatbot | Day 1 | planned |
-| 04 | Prompt Engineering | Day 2 | planned |
-| 05 | Conversation Memory | Day 2 | planned |
+| 01 | Foundations | Day 1 | done |
+| 02 | NLP Preprocessing for RAG | Day 1 | done |
+| 03 | Your First Chatbot | Day 1 | done |
+| 04 | Prompt Engineering | Day 2 | done |
+| 05 | Conversation Memory | Day 2 | done |
 | 06 | RAG Foundations | Day 2 | planned |
 | 07 | Advanced RAG and Web Search | Day 3 | planned |
 | 08 | Ethical Guardrails | Day 3 | planned |

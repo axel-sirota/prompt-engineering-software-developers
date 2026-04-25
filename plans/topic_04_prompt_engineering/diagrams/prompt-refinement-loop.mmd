@@ -1,0 +1,8 @@
+graph TD
+    A[write initial prompt] --> B[run test battery - 5 queries]
+    B --> C[score 3 dimensions - 1 to 5 each]
+    C --> D{overall score above 4?}
+    D -- Yes --> G[best prompt found]
+    D -- No --> E[identify lowest-scoring dimension]
+    E --> F[revise prompt for that dimension only]
+    F --> B

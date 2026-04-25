@@ -1,0 +1,27 @@
+graph TB
+    subgraph BROKEN["Stateless: each call is independent"]
+        direction TB
+        U1A["User turn 1:<br/>What is the APR on the Barclaycard Avios Plus?"] --> C1A["API call 1<br/>messages = [system, user_1]"]
+        C1A --> R1A["Assistant:<br/>Representative APR is 27.9 percent"]
+        R1A --> U2A["User turn 2:<br/>How do I apply for that?"]
+        U2A --> C2A["API call 2<br/>messages = [system, user_2]<br/><b>NO history of turn 1</b>"]
+        C2A --> R2A["Assistant:<br/>Apply for what? I have no context."]
+        R2A --> X1["FAIL: model cannot resolve 'that'"]
+    end
+
+    subgraph WORKING["Stateful: full history passed every call"]
+        direction TB
+        U1B["User turn 1:<br/>What is the APR on the Barclaycard Avios Plus?"] --> C1B["API call 1<br/>messages = [system, user_1]"]
+        C1B --> R1B["Assistant:<br/>Representative APR is 27.9 percent"]
+        R1B --> U2B["User turn 2:<br/>How do I apply for that?"]
+        U2B --> C2B["API call 2<br/>messages = [system, user_1,<br/>assistant_1, user_2]<br/><b>Full history included</b>"]
+        C2B --> R2B["Assistant:<br/>To apply for the Avios Plus,<br/>visit barclaycard.co.uk/apply"]
+        R2B --> OK1["SUCCESS: model resolves 'that' = Avios Plus"]
+    end
+
+    style X1 fill:#ffcccc,stroke:#cc0000,stroke-width:2px
+    style OK1 fill:#ccffcc,stroke:#006600,stroke-width:2px
+    style C1A fill:#fff5cc
+    style C2A fill:#fff5cc
+    style C1B fill:#cce5ff
+    style C2B fill:#cce5ff

@@ -1,0 +1,25 @@
+graph TD
+    Start["Initial state<br/>history = [system_msg]<br/>length = 1"] --> T1U["Turn 1: user says<br/>'What is the APR on Avios Plus?'"]
+
+    T1U --> T1Append1["history.append(user_1)<br/>length = 2"]
+    T1Append1 --> T1Send["Send full history to API<br/>[system, user_1]"]
+    T1Send --> T1Reply["Assistant reply:<br/>'27.9 percent representative'"]
+    T1Reply --> T1Append2["history.append(assistant_1)<br/>length = 3"]
+
+    T1Append2 --> T2U["Turn 2: user says<br/>'How do I apply for that?'"]
+    T2U --> T2Append1["history.append(user_2)<br/>length = 4"]
+    T2Append1 --> T2Send["Send full history to API<br/>[system, user_1, assistant_1, user_2]<br/><b>Model sees turn 1 = can resolve 'that'</b>"]
+    T2Send --> T2Reply["Assistant reply:<br/>'Apply at barclaycard.co.uk/apply'"]
+    T2Reply --> T2Append2["history.append(assistant_2)<br/>length = 5"]
+
+    T2Append2 --> T3U["Turn 3: user says<br/>'What is the annual fee?'"]
+    T3U --> T3Append1["history.append(user_3)<br/>length = 6"]
+    T3Append1 --> T3Send["Send full history to API<br/>[system, u1, a1, u2, a2, u3]<br/><b>Full context preserved</b>"]
+    T3Send --> T3Reply["Assistant reply:<br/>'240 GBP per year for the Avios Plus'"]
+    T3Reply --> Done["After turn 3:<br/>history length = 7<br/>(grows by 2 every turn)"]
+
+    style Start fill:#e0e0e0
+    style T1Send fill:#cce5ff
+    style T2Send fill:#cce5ff
+    style T3Send fill:#cce5ff
+    style Done fill:#fff5cc,stroke:#cc8800,stroke-width:2px

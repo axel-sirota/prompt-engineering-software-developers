@@ -1,0 +1,16 @@
+flowchart TD
+    A[Customer query] --> B[detect_pii\nredact UK identifiers]
+    B --> C[detect_prompt_injection\nblocklist + judge]
+    C --> D{should_escalate?\nFCA FG21-1}
+    D -->|Yes| E[Human handoff\nno LLM cost]
+    D -->|No| F[BarclaysChat memory\ntruncate or summarize]
+    F --> G[route_query\nvector confidence + keywords]
+    G --> H{Route?}
+    H -->|vector| I[retrieve\nChromaDB cosine]
+    H -->|web| J[web_search_barclays\nbarclays.co.uk only]
+    H -->|hybrid| K[hybrid_answer\nvector + web + fallback]
+    I --> L[resilient_completion\ntenacity retry + stream]
+    J --> L
+    K --> L
+    L --> M[validate_output\nFCA advice boundary]
+    M --> N[JSON log line\ncost + latency + traces]

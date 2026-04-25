@@ -1,0 +1,30 @@
+graph TB
+    subgraph Input["Input texts (raw strings)"]
+        T1["Text A:<br/>'spend money abroad'"]
+        T2["Text B:<br/>'foreign transaction fee'"]
+        T3["Text C:<br/>'mortgage rate 4.2 percent for 60 percent LTV'"]
+    end
+
+    Model["text-embedding-3-small<br/>(OpenAI Embeddings API)"]
+
+    T1 --> Model
+    T2 --> Model
+    T3 --> Model
+
+    Model --> V1["Vector A<br/>1536 floats<br/>[0.12, -0.04, 0.31, ...]"]
+    Model --> V2["Vector B<br/>1536 floats<br/>[0.15, -0.06, 0.29, ...]"]
+    Model --> V3["Vector C<br/>1536 floats<br/>[-0.41, 0.22, -0.18, ...]"]
+
+    subgraph Space["Semantic vector space (1536 dimensions)"]
+        direction LR
+        V1 -.->|"cosine sim approx 0.85<br/><b>HIGH similarity</b><br/>same meaning"| V2
+        V2 -.->|"cosine sim approx 0.10<br/><b>LOW similarity</b><br/>unrelated topic"| V3
+    end
+
+    style T1 fill:#cce5ff
+    style T2 fill:#cce5ff
+    style T3 fill:#fff5cc
+    style V1 fill:#ccffcc
+    style V2 fill:#ccffcc
+    style V3 fill:#ffcccc
+    style Model fill:#e0e0ff,stroke:#3333aa,stroke-width:2px

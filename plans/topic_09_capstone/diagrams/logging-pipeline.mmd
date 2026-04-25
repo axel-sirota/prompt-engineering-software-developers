@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant PA as production_assistant
+    participant Log as JSON logger
+    participant RAG as retrieval
+    participant LLM as gpt-4o stream
+    participant GR as validate_output
+    PA->>Log: log_request_start(query_id, redacted_query, intent)
+    PA->>RAG: retrieve / hybrid_answer
+    RAG-->>PA: chunks + citations
+    PA->>Log: retrieval span(retrieval_ms, n_chunks, top_score)
+    PA->>LLM: resilient_completion(stream=True)
+    LLM-->>PA: token stream
+    PA->>Log: llm span(prompt_tokens, completion_tokens, latency_ms)
+    PA->>GR: validate_output(buffered_text)
+    GR-->>PA: GuardrailResult
+    PA->>Log: log_request_end(cost_usd, blocked_by_guardrail)

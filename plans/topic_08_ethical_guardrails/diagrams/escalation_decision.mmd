@@ -1,0 +1,9 @@
+flowchart TD
+    A[User query\n+ history] --> B[Vulnerability\nkeyword scan\nbereavement, cannot pay,\nsuicidal, scammed]
+    B --> C{Keyword\nhit?}
+    C -->|Yes| E[Build handoff\npayload]
+    C -->|No| D[LLM-as-judge\nFCA FG21-1 rubric\nhealth, life events,\nresilience, capability]
+    D --> F{vulnerability_\nindicator\nconf >= 0.6?}
+    F -->|Yes| E
+    F -->|No| G[Pass\nno escalation]
+    E --> H[GuardrailResult\npassed=False\nescalate_to_human]

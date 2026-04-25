@@ -1,0 +1,8 @@
+flowchart LR
+    A[User input] --> B[NFKC normalize]
+    B --> C[PII regex registry\nNI, sort code, account,\npostcode, mobile, IBAN]
+    C --> D{Match\nfound?}
+    D -->|Yes| E[Replace with\nREDACTED placeholder]
+    E --> F[Log redacted\ntext only]
+    F --> G[GuardrailResult\npassed=False]
+    D -->|No| H[GuardrailResult\npassed=True]

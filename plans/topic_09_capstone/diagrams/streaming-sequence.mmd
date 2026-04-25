@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant C as Caller
+    participant API as OpenAI API
+    C->>API: chat.completions.create\nstream=True\nstream_options include_usage=True
+    loop Each SSE chunk
+        API-->>C: chunk
+        alt chunk.choices[0].delta.content exists
+            C->>C: append to buffer\nprint(content, end='', flush=True)
+        else Final chunk - no choices
+            C->>C: cost = chunk.usage\nprompt_tokens + completion_tokens
+        end
+    end
+    C->>C: return buffer + usage

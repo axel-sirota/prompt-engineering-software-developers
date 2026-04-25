@@ -1,0 +1,9 @@
+flowchart TD
+    A[User input] --> B[NFKC normalize]
+    B --> C[Blocklist regex\nignore instructions,\nreveal prompt, etc.]
+    C --> D{Blocklist\nmatch?}
+    D -->|Yes| E[Block\nGuardrailResult\npassed=False\nlayer=blocklist]
+    D -->|No| F[LLM-as-judge\ngpt-4o at temp=0\nJSON mode]
+    F --> G{is_injection AND\nconfidence >= 0.7?}
+    G -->|Yes| H[Block\nGuardrailResult\npassed=False\nlayer=judge]
+    G -->|No| I[Pass through\nGuardrailResult\npassed=True]

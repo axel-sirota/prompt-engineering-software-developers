@@ -1,0 +1,11 @@
+flowchart TD
+    A[Customer query] --> B[embed + vector_confidence]
+    B --> C{Rate keyword\nin query?}
+    C -->|Yes + conf >= 0.5| D[HYBRID\nvector + web]
+    C -->|Yes + conf < 0.5| E[WEB only]
+    C -->|No| F{conf >= 0.75?}
+    F -->|Yes| G[VECTOR only\nfast + cheap]
+    F -->|No| E
+    D --> H{Web call\nsucceeds?}
+    H -->|No| G
+    E --> H

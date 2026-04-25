@@ -1,0 +1,12 @@
+sequenceDiagram
+    participant C as Caller
+    participant API as Responses API
+    participant Web as barclays.co.uk
+    C->>API: responses.create(tools=[web_search], input=query)
+    API->>Web: web_search_call(query, allowed_domains)
+    Web-->>API: search results
+    API-->>C: response.output[]
+    Note over C: output[0].type = web_search_call
+    Note over C: output[1].type = message
+    Note over C: message.content[0].text = answer
+    Note over C: message.content[0].annotations = url_citations

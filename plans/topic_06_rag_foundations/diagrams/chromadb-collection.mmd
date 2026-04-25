@@ -1,0 +1,25 @@
+graph TB
+    subgraph AddCall["collection.add(ids=..., documents=..., embeddings=...)"]
+        direction LR
+        AID["ids list:<br/>['doc_0',<br/>'doc_1',<br/>'doc_2', ...]"]
+        ADOC["documents list:<br/>['Personal Loan...',<br/>'Rewards Card...',<br/>'Savings Acct...', ...]"]
+        AEMB["embeddings list:<br/>[[0.12, -0.04, ...],<br/>[0.15, -0.06, ...],<br/>[0.31, 0.22, ...], ...]"]
+    end
+
+    AddCall ==>|"populates 3 parallel arrays"| Coll
+
+    subgraph Coll["ChromaDB collection 'barclays_products'<br/>(persisted on disk via PersistentClient)"]
+        direction LR
+        CID["<b>ids</b><br/>doc_0<br/>doc_1<br/>doc_2<br/>doc_3<br/>..."]
+        CDOC["<b>documents</b><br/>(raw text)<br/>'Personal Loan...'<br/>'Rewards Card...'<br/>'Savings Acct...'<br/>'Mortgage...'<br/>..."]
+        CEMB["<b>embeddings</b><br/>(1536-dim vectors)<br/>indexed via HNSW<br/>cosine distance<br/>configured at create"]
+    end
+
+    Q["collection.query(<br/>query_embeddings=[query_vec],<br/>n_results=3)"] ==>|"cosine search"| Coll
+
+    Coll ==> R["result dict (nested by query):<br/>result['ids'][0]: top-3 ids<br/>result['documents'][0]: top-3 docs<br/>result['distances'][0]: top-3 cosine distances"]
+
+    style AddCall fill:#cce5ff,stroke:#0044aa,stroke-width:2px
+    style Q fill:#fff5cc,stroke:#aa7700,stroke-width:2px
+    style Coll fill:#e5e5e5,stroke:#444444,stroke-width:2px
+    style R fill:#ccffcc,stroke:#006600,stroke-width:2px

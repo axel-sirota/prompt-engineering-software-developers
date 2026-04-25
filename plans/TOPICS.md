@@ -201,7 +201,7 @@
 
 ## Topic 06 - RAG Foundations
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 2
 - **Slug**: `topic_06_rag_foundations`
 - **Exercise**: `exercises/topic_06_rag_foundations/topic_06_rag_foundations.ipynb`
@@ -231,15 +231,15 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 6` to produce the plan
-- [ ] Run `/build-topic-notebook 6` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 6` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
 ## Topic 07 - Advanced RAG and Web Search
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 3
 - **Slug**: `topic_07_advanced_rag_web_search`
 - **Exercise**: `exercises/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb`
@@ -277,7 +277,7 @@
 
 ## Topic 08 - Ethical Guardrails
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 3
 - **Slug**: `topic_08_ethical_guardrails`
 - **Exercise**: `exercises/topic_08_ethical_guardrails/topic_08_ethical_guardrails.ipynb`
@@ -309,15 +309,15 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 8` to produce the plan
-- [ ] Run `/build-topic-notebook 8` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 8` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
 ## Topic 09 - Capstone: Production Customer Service Assistant
 
-- **Status**: planned
+- **Status**: done
 - **Day**: Day 3
 - **Slug**: `topic_09_capstone`
 - **Exercise**: `exercises/topic_09_capstone/topic_09_capstone.ipynb`
@@ -347,9 +347,9 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 9` to produce the plan
-- [ ] Run `/build-topic-notebook 9` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 9` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
@@ -362,7 +362,7 @@
 | 03 | Your First Chatbot | Day 1 | done |
 | 04 | Prompt Engineering | Day 2 | done |
 | 05 | Conversation Memory | Day 2 | done |
-| 06 | RAG Foundations | Day 2 | planned |
+| 06 | RAG Foundations | Day 2 | done |
 | 07 | Advanced RAG and Web Search | Day 3 | planned |
 | 08 | Ethical Guardrails | Day 3 | planned |
-| 09 | Capstone | Day 3 | planned |
+| 09 | Capstone | Day 3 | done |

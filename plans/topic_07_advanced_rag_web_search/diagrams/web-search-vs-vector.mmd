@@ -1,0 +1,12 @@
+graph LR
+    subgraph Vector["Vector Store (ChromaDB)"]
+        V1[Query embed] --> V2[Cosine search]
+        V2 --> V3["APR 6.5% - STALE"]
+    end
+    subgraph Web["Web Search (barclays.co.uk)"]
+        W1[Query] --> W2[barclays.co.uk]
+        W2 --> W3["APR 6.3% - LIVE"]
+    end
+    V3 --> LLM[gpt-4o]
+    W3 --> LLM
+    LLM --> Answer[Grounded answer]

@@ -1,0 +1,11 @@
+flowchart TD
+    A[Assistant draft\nresponse] --> B[OpenAI Moderation API\nomni-moderation-latest\nfree]
+    B --> C{Flagged\nharmful?}
+    C -->|Yes| D[Block\nmoderation_flagged]
+    C -->|No| E[Regex pass\nyou should, I recommend,\nbest for you, etc.]
+    E --> F{Regex\nmatch?}
+    F -->|Yes| G[Block\nrecommendation_phrase]
+    F -->|No| H[LLM-as-judge\nPERG 8.30B.2G rubric\ngpt-4o JSON mode]
+    H --> I{is_personal_\nrecommendation\nconf >= 0.7?}
+    I -->|Yes| J[Block\njudge_personal_\nrecommendation]
+    I -->|No| K[Pass\noutput_ok]

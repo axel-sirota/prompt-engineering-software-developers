@@ -1,0 +1,13 @@
+flowchart TD
+    A[resilient_completion\ncalled] --> B[Attempt 1\nclient.chat.completions.create]
+    B --> C{Success?}
+    C -->|Yes| D[Return response]
+    C -->|RateLimitError\nAPIConnectionError\nAPITimeoutError| E[wait_random_exponential\nmultiplier=1, max=60s]
+    E --> F[Attempt 2]
+    F --> G{Success?}
+    G -->|Yes| D
+    G -->|Error again| H[wait exponential]
+    H --> I[Attempt 3 ... 6]
+    I --> J{Success?}
+    J -->|Yes| D
+    J -->|Exhausted\nstop_after_attempt 6| K[Raise last\nexception]

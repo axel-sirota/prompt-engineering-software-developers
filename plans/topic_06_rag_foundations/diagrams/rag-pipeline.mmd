@@ -1,0 +1,36 @@
+graph TD
+    Q["<b>Customer query</b><br/>'Does Barclays charge me<br/>for spending abroad?'"]
+
+    Q --> E1["Step 1: embed query<br/>embed_texts([query])<br/>via text-embedding-3-small"]
+    E1 --> QV["Query vector<br/>(1536 floats)"]
+
+    QV --> S1["Step 2: cosine search<br/>collection.query(<br/>query_embeddings=[query_vec],<br/>n_results=3)"]
+
+    DB[("ChromaDB collection<br/>'barclays_products'<br/>7 doc chunks indexed<br/>cosine distance, HNSW")]
+    DB -.->|"semantic match<br/>via HNSW index"| S1
+
+    S1 --> Chunks["Top-3 retrieved chunks:<br/>1. 'Rewards Card: foreign txn fee 0 percent'<br/>2. 'Travel Pack: zero foreign fees'<br/>3. 'Student Account: ...'"]
+
+    Chunks --> P["Step 3: build augmented prompt"]
+
+    subgraph Prompt["Prompt structure (the 'A' in RAG)"]
+        direction TB
+        SYS["<b>system</b>:<br/>'You are a Barclays product expert.<br/>Answer ONLY from the context below.<br/>If not in context, say so.'"]
+        USR["<b>user</b>:<br/>'Context:<br/>{chunks joined by blank lines}<br/><br/>Question: {customer query}'"]
+    end
+
+    P --> SYS
+    P --> USR
+
+    SYS --> GEN["Step 4: generate answer<br/>client.chat.completions.create(<br/>model='gpt-4o',<br/>messages=[system, user],<br/>temperature=0.2)"]
+    USR --> GEN
+
+    GEN --> A["<b>Grounded answer</b><br/>'No, the Barclays Rewards card has<br/>no foreign transaction fee (0 percent).<br/>The Travel Pack also includes<br/>zero foreign transaction fees.'"]
+
+    style Q fill:#fff5cc,stroke:#aa7700,stroke-width:2px
+    style QV fill:#cce5ff
+    style DB fill:#e0e0ff,stroke:#3333aa,stroke-width:2px
+    style Chunks fill:#cce5ff
+    style Prompt fill:#ffe5cc,stroke:#aa5500,stroke-width:2px
+    style GEN fill:#e0e0ff,stroke:#3333aa,stroke-width:2px
+    style A fill:#ccffcc,stroke:#006600,stroke-width:3px

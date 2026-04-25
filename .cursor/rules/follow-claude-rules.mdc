@@ -1,0 +1,69 @@
+---
+description: Follow all CLAUDE.md rules for this repository
+globs: ["**/*.ipynb", "**/*.md", "**/*.py", "plans/**", "exercises/**", "solutions/**"]
+alwaysApply: true
+---
+
+# Follow All CLAUDE.md Rules
+
+Read `CLAUDE.md` at the root of this repository before doing any work. All rules defined
+there are MANDATORY and override any default behavior.
+
+## The most critical rules (violations require a redo):
+
+1. **No AI typography in any notebook cell or plan file**:
+   - NO em dashes (the long dash). Use a plain hyphen or rewrite the sentence.
+   - NO en dashes. Use a plain hyphen.
+   - NO horizontal rule separators (---) inside notebook markdown cells.
+   - NO Unicode multiplication sign. Write "x" or "times".
+   - NO bullet unicode symbols in code cell output strings.
+   - Emojis ARE allowed in markdown cell headers and section titles.
+   - First person voice IS correct: "I'm going to show you..." not "In this section we will..."
+
+2. **5 cells at a time**: Never add more than 5 notebook cells without stopping, running
+   validation, and confirming the batch looks correct.
+
+3. **cell_id always**: After the first cell, ALWAYS verify the cell_id and position with
+   the python cell-list snippet before passing it to any notebook edit tool:
+   ```bash
+   .venv/bin/python3 -c "
+   import json
+   with open('PATH') as f: nb = json.load(f)
+   for i, c in enumerate(nb['cells']):
+       print(i, c.get('id','?'), c['cell_type'], repr(''.join(c['source'])[:60]))
+   "
+   ```
+
+4. **NEVER delete a cell**: Only replace content or insert new cells. Ask the user before
+   deleting any cell in any notebook, every single time without exception.
+
+5. **Exercise first**: Build the full exercise notebook and get approval before starting
+   the solution notebook.
+
+6. **No answer hints in # YOUR CODE**: The comment after # YOUR CODE must not describe
+   the solution approach.
+
+7. **Safety-net cells required**: Any lab output variable consumed by a later cell needs
+   a gated fallback cell. Keep these in solution notebooks even though they never fire.
+
+8. **numpy<2 always**: Pin numpy<2 in every pip install cell.
+
+9. **API keys via getpass**: Never hardcode keys. Always use getpass.getpass() or os.environ.
+
+10. **Validate after every 5 cells**:
+    ```bash
+    .venv/bin/python3 validate_notebooks.py PATH --type exercise
+    ```
+
+11. **Plans folder gitignored**: Never commit plan files (plans/topic_*.md).
+    Only plans/TOPICS.md and plans/CORE_TECHNOLOGIES_AND_DECISIONS.md are tracked.
+
+12. **All pip/python via virtualenv**: Always use .venv/bin/python3, never bare python3.
+    Always use .venv/bin/python3 -m pip, never bare pip.
+
+## See Also
+
+- `cursor-handover.txt` - full session context and next tasks
+- `progress.txt` - most recent session snapshot
+- `plans/CORE_TECHNOLOGIES_AND_DECISIONS.md` - locked course decisions
+- `.cursor/commands/pickup-claude-code.md` - how to orient yourself at session start

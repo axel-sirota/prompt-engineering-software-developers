@@ -126,7 +126,7 @@
 
 ## Topic 04 - Prompt Engineering
 
-- **Status**: in_progress
+- **Status**: done
 - **Day**: Day 2
 - **Slug**: `topic_04_prompt_engineering`
 - **Exercise**: `exercises/topic_04_prompt_engineering/topic_04_prompt_engineering.ipynb`
@@ -156,9 +156,9 @@
 
 ### Manifest (what needs to happen)
 - [x] Run `/run-research-topic 4` to produce the plan
-- [ ] Run `/build-topic-notebook 4` to build exercise notebook
-- [ ] Build solution notebook after exercise approved
-- [ ] Run `/validate-notebooks --pair ...` final check
+- [x] Run `/build-topic-notebook 4` to build exercise notebook
+- [x] Build solution notebook after exercise approved
+- [x] Run `/validate-notebooks --pair ...` final check
 
 ---
 
@@ -239,7 +239,7 @@
 
 ## Topic 07 - Advanced RAG and Web Search
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 3
 - **Slug**: `topic_07_advanced_rag_web_search`
 - **Exercise**: `exercises/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb`
@@ -268,7 +268,7 @@
 - openai, chromadb, anthropic
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 7` to produce the plan
+- [x] Run `/run-research-topic 7` to produce the plan
 - [ ] Run `/build-topic-notebook 7` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -277,7 +277,7 @@
 
 ## Topic 08 - Ethical Guardrails
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 3
 - **Slug**: `topic_08_ethical_guardrails`
 - **Exercise**: `exercises/topic_08_ethical_guardrails/topic_08_ethical_guardrails.ipynb`
@@ -308,7 +308,7 @@
 - openai, anthropic, re
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 8` to produce the plan
+- [x] Run `/run-research-topic 8` to produce the plan
 - [ ] Run `/build-topic-notebook 8` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -317,7 +317,7 @@
 
 ## Topic 09 - Capstone: Production Customer Service Assistant
 
-- **Status**: not_started
+- **Status**: planned
 - **Day**: Day 3
 - **Slug**: `topic_09_capstone`
 - **Exercise**: `exercises/topic_09_capstone/topic_09_capstone.ipynb`
@@ -346,7 +346,7 @@
 - openai, anthropic, chromadb, re, time, logging
 
 ### Manifest (what needs to happen)
-- [ ] Run `/run-research-topic 9` to produce the plan
+- [x] Run `/run-research-topic 9` to produce the plan
 - [ ] Run `/build-topic-notebook 9` to build exercise notebook
 - [ ] Build solution notebook after exercise approved
 - [ ] Run `/validate-notebooks --pair ...` final check
@@ -363,6 +363,6 @@
 | 04 | Prompt Engineering | Day 2 | planned |
 | 05 | Conversation Memory | Day 2 | planned |
 | 06 | RAG Foundations | Day 2 | planned |
-| 07 | Advanced RAG and Web Search | Day 3 | not_started |
-| 08 | Ethical Guardrails | Day 3 | not_started |
-| 09 | Capstone | Day 3 | not_started |
+| 07 | Advanced RAG and Web Search | Day 3 | planned |
+| 08 | Ethical Guardrails | Day 3 | planned |
+| 09 | Capstone | Day 3 | planned |

@@ -126,7 +126,7 @@
 
 ## Topic 04 - Prompt Engineering
 
-- **Status**: planned
+- **Status**: in_progress
 - **Day**: Day 2
 - **Slug**: `topic_04_prompt_engineering`
 - **Exercise**: `exercises/topic_04_prompt_engineering/topic_04_prompt_engineering.ipynb`

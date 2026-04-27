@@ -7,6 +7,7 @@
 | 2026-04-25 | T2-FIX-005 | Gate Cell 6 getpass with os.environ check | topic_02 exercise + solution | resolved - cell id 2cb33b37 |
 | 2026-04-27 | ALL-FIX-001 | Pin sagemaker==2.232.1 + boto3 in all pip install cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
 | 2026-04-27 | ALL-FIX-002 | Normalize char-by-char source arrays to line arrays in all 211 code cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
+| 2026-04-27 | ALL-FIX-005 | Fix S3 bucket name in T02, remove boto3 narrative, replace s3:// hints with HTTPS | T02 (ex+sol), T06/T07/T09 (ex+sol) | resolved - see detail below |
 
 ## 2026-04-27 - ALL-FIX-002: char-by-char source storage normalization
 
@@ -17,6 +18,22 @@
 **Fix**: Ran a normalization script across all 18 notebooks. For each code cell whose source array was detected as character-by-character (items mostly length 1-2), joined all items into a single string then re-split using `splitlines(keepends=True)` to produce the correct line-per-item format. 211 cells normalized across 18 notebooks.
 
 **Validation**: All 9 topic pairs passed. Remaining validator errors are local-env false positives (chromadb not installed in .venv).
+
+## 2026-04-27 - ALL-FIX-005: S3 bucket name, boto3 narrative, and s3:// stretch hints
+
+**Topics affected**: topic_02 (exercise + solution), topic_06, topic_07, topic_09 (exercise + solution each)
+
+**Problem 1**: T02 `S3_BUCKET = "barclays-pe-test-axel-7342"` was the personal test bucket. Production bucket is `barclays-prompt-eng-data`.
+
+**Problem 2**: T02 Mermaid diagram (cell ca6eb189), env setup markdown (cell 489317d0), learning objectives (cell 2d392fb0), and pip comment (cell 4e17ec14) all referenced "boto3" in the narrative. The actual `load_pdf_from_s3()` implementation uses `requests.get()` over HTTPS - no boto3 SDK call. The narrative was misleading students.
+
+**Problem 3**: T06, T07, T09 (exercise + solution) Tier 3 stretch hints contained `s3://barclays-prompt-eng-data/barclays_chunks.json` - an `s3://` URI requires boto3 SDK and IAM credentials. Students have no IAM write permissions.
+
+**Fix**: All 10 notebooks updated:
+- T02 (ex+sol): bucket name changed, Mermaid label changed to `requests.get(url)`, narrative text updated
+- T06/T07/T09 (ex+sol): stretch hints changed to HTTPS URL + `requests.get(url).json()` pattern
+
+**Verification**: `grep -rn 'barclays-pe-test-axel'` = 0, `grep -rn 's3://'` = 0, `grep -rn 'boto3 get_object'` = 0. T02 validation: pass (exercise + solution). T06/T07/T09: pre-existing chromadb false positive only.
 
 ## 2026-04-27 - ALL-FIX-001: sagemaker SDK version pin across all 18 notebooks
 

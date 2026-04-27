@@ -34,6 +34,19 @@
 
 ---
 
+## ALL-FIX-005: S3 passthrough hardening - 2026-04-27
+
+### ALL-FIX-005 [RESOLVED 2026-04-27] Fix S3 bucket name, boto3 references, and s3:// stretch hints
+- T02: S3_BUCKET changed from "barclays-pe-test-axel-7342" to "barclays-prompt-eng-data"
+- T02: Mermaid diagram label changed from "boto3 get_object" to "requests.get(url)"
+- T02: Learning objectives, env setup text, and pip comment updated - no more "boto3" in student-facing narrative
+- T06/T07/T09 (ex+sol): stretch hints changed from s3:// URI to HTTPS URL + requests.get() pattern
+- All 10 notebooks fixed. Verified 0 remaining occurrences of barclays-pe-test-axel, s3://, boto3 get_object.
+- T02 validation: pass. T06/T07/T09: pre-existing chromadb false positive only.
+- Status: resolved
+
+---
+
 ## All Topics: sagemaker SDK version fix - 2026-04-27
 
 ### ALL-FIX-001 [RESOLVED 2026-04-27] Pin sagemaker==2.232.1 in all pip install cells

@@ -6,6 +6,17 @@
 | 2026-04-25 | T2-FIX-003 | Add test-bucket switch comment above S3_BUCKET in Cell 3 | topic_02 exercise + solution | resolved - cell id 3599d0ac |
 | 2026-04-25 | T2-FIX-005 | Gate Cell 6 getpass with os.environ check | topic_02 exercise + solution | resolved - cell id 2cb33b37 |
 | 2026-04-27 | ALL-FIX-001 | Pin sagemaker==2.232.1 + boto3 in all pip install cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
+| 2026-04-27 | ALL-FIX-002 | Normalize char-by-char source arrays to line arrays in all 211 code cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
+
+## 2026-04-27 - ALL-FIX-002: char-by-char source storage normalization
+
+**Problem**: The NotebookEdit tool stored cell `source` as a list of individual characters (e.g. `["#", " ", "t", "i", ...]` with 447+ items per cell) instead of the correct nbformat: a list of lines (e.g. `["# comment\n", "!pip install ...\n"]`). SageMaker's Jupyter renderer splits on source array items, so each character was rendered as a separate "token", causing comments to display with embedded newlines and cells to appear garbled.
+
+**Root cause**: The NotebookEdit tool passed the cell source as a single string; the tool internally stored it character-by-character instead of splitting on line boundaries.
+
+**Fix**: Ran a normalization script across all 18 notebooks. For each code cell whose source array was detected as character-by-character (items mostly length 1-2), joined all items into a single string then re-split using `splitlines(keepends=True)` to produce the correct line-per-item format. 211 cells normalized across 18 notebooks.
+
+**Validation**: All 9 topic pairs passed. Remaining validator errors are local-env false positives (chromadb not installed in .venv).
 
 ## 2026-04-27 - ALL-FIX-001: sagemaker SDK version pin across all 18 notebooks
 

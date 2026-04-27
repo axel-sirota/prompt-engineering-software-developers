@@ -20,6 +20,20 @@
 
 ---
 
+## All Topics: char-by-char source storage bug - 2026-04-27
+
+### ALL-FIX-002 [RESOLVED 2026-04-27] All code cells stored character-by-character in source arrays
+- Files: all 9 exercise notebooks + all 9 solution notebooks (all code cells affected)
+- Problem: NotebookEdit tool stored cell source as a list of individual characters instead
+  of a list of lines. SageMaker Jupyter renders these incorrectly - comments appear with
+  embedded newlines, cells display wrong.
+- Fix: run a normalization script that joins each cell's source chars into proper line-split
+  arrays (each item = one line ending in \n, last item has no trailing \n)
+- Status: resolved
+- Fix applied: normalized 211 code cells across all 18 notebooks using splitlines(keepends=True)
+
+---
+
 ## All Topics: sagemaker SDK version fix - 2026-04-27
 
 ### ALL-FIX-001 [RESOLVED 2026-04-27] Pin sagemaker==2.232.1 in all pip install cells

@@ -1,6 +1,6 @@
 # Course Topic Manifest
 # Barclays - Generative AI: Prompt Engineering for Software Developers
-# Last updated: 2026-04-25
+# Last updated: 2026-04-27
 #
 # Status values: not_started | planned | in_progress | done
 # Edit the status field manually or let /run-research-topic, /build-topic-notebook, /fixes update it.
@@ -51,7 +51,7 @@
 
 ## Topic 02 - NLP Preprocessing for RAG
 
-- **Status**: done
+- **Status**: done (fixes T2-FIX-001/002, T2-FIX-002, T2-FIX-003, T2-FIX-005 applied 2026-04-25/27)
 - **Day**: Day 1
 - **Slug**: `topic_02_nlp_preprocessing`
 - **Exercise**: `exercises/topic_02_nlp_preprocessing/topic_02_nlp_preprocessing.ipynb`
@@ -85,6 +85,8 @@
 - [x] Run `/build-topic-notebook 2` to build exercise notebook
 - [x] Build solution notebook after exercise approved
 - [x] Run `/validate-notebooks --pair ...` final check
+- [x] /fixes 2026-04-27: T02-FIX-001 (Mermaid diagram fitz.open -> pymupdf.open in cell ca6eb189),
+      T02-FIX-002 (solution Cell 4e17ec14 pip install aligned to add openai==2.32.0)
 
 ---
 
@@ -121,6 +123,9 @@
 - [x] Run `/build-topic-notebook 3` to build exercise notebook
 - [x] Build solution notebook after exercise approved
 - [x] Run `/validate-notebooks --pair ...` final check
+- [x] /fixes 2026-04-25: T3-FIX-002 (PRODUCT_SNIPPET -> BARCLAYS_PRODUCT_SNIPPET),
+      T3-FIX-003 (rephrase inaccurate "richer context" claim),
+      T3-FIX-004 (add GPT4O pricing constants to setup cell)
 
 ---
 
@@ -159,12 +164,20 @@
 - [x] Run `/build-topic-notebook 4` to build exercise notebook
 - [x] Build solution notebook after exercise approved
 - [x] Run `/validate-notebooks --pair ...` final check
+- [x] /fixes 2026-04-27: T4-FIX-001 (sagemaker imports already removed - confirmed clean),
+      T4-FIX-003 (wrap-up cell 90ecf431 Topic 5 -> Topic 9 corrected in both notebooks),
+      T4-FIX-005 (openai pin already 2.32.0 - confirmed correct)
+
+### Open Issues
+- [x] T4-FIX-001: Remove dead sagemaker import block from Cell 3 (resolved 2026-04-27 - already clean)
+- [x] T4-FIX-003: Fix false Topic 5 routing claim (resolved 2026-04-27 - wrap-up cell corrected)
+- [x] T4-FIX-005: Pin openai to 2.32.0 in Cell 2 (resolved 2026-04-27 - already correct)
 
 ---
 
 ## Topic 05 - Conversation Memory
 
-- **Status**: done
+- **Status**: done (fixes T5-FIX-003 applied 2026-04-27)
 - **Day**: Day 2
 - **Slug**: `topic_05_conversation_memory`
 - **Exercise**: `exercises/topic_05_conversation_memory/topic_05_conversation_memory.ipynb`
@@ -197,11 +210,14 @@
 - [x] Build solution notebook after exercise approved
 - [x] Run `/validate-notebooks --pair ...` final check
 
+### Open Issues
+- [x] T5-FIX-003: BARCLAYS_SYSTEM_PROMPT replaced with T3 full canonical version (resolved 2026-04-27)
+
 ---
 
 ## Topic 06 - RAG Foundations
 
-- **Status**: done
+- **Status**: done (ALL-FIX-001 sagemaker pin applied 2026-04-27)
 - **Day**: Day 2
 - **Slug**: `topic_06_rag_foundations`
 - **Exercise**: `exercises/topic_06_rag_foundations/topic_06_rag_foundations.ipynb`
@@ -239,7 +255,7 @@
 
 ## Topic 07 - Advanced RAG and Web Search
 
-- **Status**: done
+- **Status**: done (ALL-FIX-001 sagemaker pin applied 2026-04-27)
 - **Day**: Day 3
 - **Slug**: `topic_07_advanced_rag_web_search`
 - **Exercise**: `exercises/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb`
@@ -277,7 +293,7 @@
 
 ## Topic 08 - Ethical Guardrails
 
-- **Status**: done
+- **Status**: done (ALL-FIX-001 sagemaker pin applied 2026-04-27)
 - **Day**: Day 3
 - **Slug**: `topic_08_ethical_guardrails`
 - **Exercise**: `exercises/topic_08_ethical_guardrails/topic_08_ethical_guardrails.ipynb`
@@ -317,7 +333,7 @@
 
 ## Topic 09 - Capstone: Production Customer Service Assistant
 
-- **Status**: done
+- **Status**: done (fixes T9-FIX-004, T9-FIX-007, T9-FIX-008, T9-FIX-009, T9-FIX-012, T9-FIX-013 applied 2026-04-27)
 - **Day**: Day 3
 - **Slug**: `topic_09_capstone`
 - **Exercise**: `exercises/topic_09_capstone/topic_09_capstone.ipynb`
@@ -351,6 +367,37 @@
 - [x] Build solution notebook after exercise approved
 - [x] Run `/validate-notebooks --pair ...` final check
 
+### Open Issues
+- [x] T9-FIX-004: BARCLAYS_SYSTEM_PROMPT replaced with T3 full canonical version (resolved 2026-04-27)
+- [x] T9-FIX-007: CLASSIFICATION_SCHEMA and classify_with_schema aligned to T4's 3-field schema (resolved 2026-04-27)
+- [x] T9-FIX-008: count_tokens_in_messages corrected to T5's 3+3 formula (resolved 2026-04-27)
+- [x] T9-FIX-009: BarclaysChat.__init__ aligned to T5 signature, max_tokens as class attr (resolved 2026-04-27)
+- [x] T9-FIX-012: web_search per-call cost note added to end-to-end test cell eddf92cc860d (resolved 2026-04-27)
+- [x] T9-FIX-013: barclays_chunks.json stretch hint added to Tier 3 lab brief b59e17a9a1df (resolved 2026-04-27)
+
+---
+
+## Setup Notebooks
+
+### INSTRUCTOR_TEST_SETUP.ipynb
+
+- **Status**: done
+- **File**: `setup/INSTRUCTOR_TEST_SETUP.ipynb`
+- **Purpose**: Run once from personal AWS account to generate synthetic PDFs and upload to personal public S3 bucket for pre-course testing.
+
+#### Fixes Applied
+- [x] TEST-SETUP-FIX-001: numpy<2 added to pip install line in cell 6848e038 (2026-04-27)
+- [x] TEST-SETUP-FIX-002: BankingDocPDF body_text() and qa_block() changed multi_cell(0,...) to multi_cell(self.epw,...) to fix FPDFException with align="J" (2026-04-27)
+
+### INSTRUCTOR_SETUP.ipynb
+
+- **Status**: done
+- **File**: `setup/INSTRUCTOR_SETUP.ipynb`
+- **Purpose**: Run on course day morning inside SageMaker to upload real Barclays PDFs to barclays-prompt-eng-data S3 bucket.
+
+#### Fixes Applied
+- [x] SETUP-FIX-004: PDF manifest updated with all confirmed public Barclays URLs including savings rates, ISA terms, guide to ISAs; personal loan URL reviewed (2026-04-27)
+
 ---
 
 ## Summary
@@ -363,6 +410,6 @@
 | 04 | Prompt Engineering | Day 2 | done |
 | 05 | Conversation Memory | Day 2 | done |
 | 06 | RAG Foundations | Day 2 | done |
-| 07 | Advanced RAG and Web Search | Day 3 | planned |
-| 08 | Ethical Guardrails | Day 3 | planned |
+| 07 | Advanced RAG and Web Search | Day 3 | done |
+| 08 | Ethical Guardrails | Day 3 | done |
 | 09 | Capstone | Day 3 | done |

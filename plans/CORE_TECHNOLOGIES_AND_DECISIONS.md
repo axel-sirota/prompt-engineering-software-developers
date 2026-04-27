@@ -24,14 +24,14 @@
   answers customer service agent questions about Barclays products, built up topic by topic
   from a raw API call to a full RAG + memory + guardrails assistant using public Barclays
   product PDFs as the corpus
-- **Capstone (Topic 9)**: Barclays Transaction Query Agent - a single-pass tool-augmented
-  agent students build independently; classifies transaction-related customer intent,
-  calls manually coded tools (policy lookup via RAG, mock transaction lookup, human
-  escalation), returns a grounded compliant response; uses Banking77 HuggingFace dataset
-  for intent examples
+- **Capstone (Topic 9)**: Production Customer Service Assistant - students integrate all
+  prior-topic components (RAG from T6, hybrid web search from T7, guardrails from T8,
+  retry/backoff with tenacity, per-request cost tracking, streaming output) into a single
+  production_assistant(user_message, chat_state) orchestrator; no new dataset required;
+  uses the same 7-doc BARCLAYS_DOCS corpus carried forward from T6
 - **Core dataset**: Public Barclays PDFs (Barclaycard T&C, personal loan FAQ, credit card
   product summaries) pre-loaded to barclays-prompt-eng-data S3 bucket by instructor
-  before class; Banking77 from HuggingFace for capstone
+  before class; same 7-doc corpus used across T6, T7, and T9
 - **Continuity across days**: Notebooks are independent and self-contained. Each rebuilds
   what it needs. If a prior topic artifact exists (e.g. ChromaDB collection), later topics
   can optionally load it - if not, they rebuild from scratch. No topic fails because a
@@ -81,7 +81,7 @@
 - Emojis and first-person voice are encouraged
 - Notebook independence: every notebook is self-contained; optional loading of prior
   artifacts where beneficial but never required
-- Capstone dataset: Banking77 (HuggingFace PolyAI/banking77)
+- Capstone dataset: same 7-doc BARCLAYS_DOCS corpus from T6 (no separate capstone dataset)
 - No branding: no external company names or logos in any notebook cell
 - Safety-net cells in solution notebooks: KEEP them, do not delete. The solution notebook
   should maintain cell parity with the exercise - even if a safety-net never fires (because

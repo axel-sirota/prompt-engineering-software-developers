@@ -74,6 +74,10 @@ class NotebookValidator:
 
             if not source.strip() or source.strip().startswith('!'):
                 continue
+            # Skip cells that contain shell magic lines (e.g. !pip install preceded by comments)
+            non_comment_lines = [l for l in source.splitlines() if l.strip() and not l.strip().startswith('#')]
+            if non_comment_lines and non_comment_lines[0].strip().startswith('!'):
+                continue
 
             try:
                 ast.parse(source)

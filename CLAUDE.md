@@ -202,7 +202,8 @@ No `None` placeholders. No step-by-step hints. Just a clear problem statement an
 
 ## CRITICAL Rules (Violating Any = Redo)
 
-1. **No AI typography in notebook cells or plan files**:
+1. **Comments must be single-line only**: Every `#` comment in a code cell must fit on one line. Never wrap a comment across multiple lines. If a comment is too long, shorten it. The NotebookEdit tool has caused char-by-char rendering bugs when multi-line comment blocks were used - single-line comments avoid this entirely.
+2. **No AI typography in notebook cells or plan files**:
    - NO em dashes (the long dash: —). Use a plain hyphen or rewrite the sentence.
    - NO en dashes (–). Use a plain hyphen.
    - NO horizontal rule separators (---) inside notebook markdown cells. Use a blank line or a header instead.
@@ -210,8 +211,8 @@ No `None` placeholders. No step-by-step hints. Just a clear problem statement an
    - NO bullet unicode symbols like •, ✓, ✗ in code cell output strings. Use plain ASCII: *, [x], [ ].
    - Emojis ARE allowed and encouraged in markdown cell headers and section titles.
    - First person voice IS the correct tone. Write "I'm going to show you..." not "In this section we will...".
-2. **5 cells at a time**: Never add more than 5 cells without stopping and asking for approval.
-3. **cell_id always**: After the first cell, ALWAYS pass `cell_id` to NotebookEdit to avoid reordering.
+3. **5 cells at a time**: Never add more than 5 cells without stopping and asking for approval.
+4. **cell_id always**: After the first cell, ALWAYS pass `cell_id` to NotebookEdit to avoid reordering.
    - **MANDATORY before ANY NotebookEdit**: run this python snippet first to verify the target cell_id and its position:
      ```bash
      .venv/bin/python3 -c "
@@ -223,15 +224,16 @@ No `None` placeholders. No step-by-step hints. Just a clear problem statement an
      "
      ```
    - Never assume a cell_id is at the right position - always verify the order first.
-4. **NEVER delete a cell**: Only replace content or insert new cells. Deleting a cell requires explicit approval from Axel every time - ask first, no exceptions. This applies to exercise notebooks, solution notebooks, and any future notebook regardless of context.
-5. **Exercise first**: Build the full exercise notebook and get approval BEFORE starting the solution.
-6. **No answer hints in `# YOUR CODE`**: The comment after `# YOUR CODE` must not describe the solution.
-7. **Safety-net cells required**: Any lab output used by a later cell needs a gated fallback cell in the exercise notebook.
-8. **numpy<2 always**: Pin numpy<2 in every install cell.
-9. **API keys via getpass**: Never hardcode API keys. Always use `getpass.getpass()` or `os.environ`.
-10. **Validate after every 5 cells**: Run `python validate_notebooks.py <path> --type exercise` after each batch.
-11. **Plans folder gitignored**: Never commit plan files (except TOPICS.md, TODOS.md, AUDIT.md).
-12. **AI-tells scan before finalizing any notebook**: Run the AI-tells checker on every completed notebook before marking it done. See `/validate-notebooks` for the command.
+5. **NEVER delete a cell**: Only replace content or insert new cells. Deleting a cell requires explicit approval from Axel every time - ask first, no exceptions. This applies to exercise notebooks, solution notebooks, and any future notebook regardless of context.
+6. **Exercise first**: Build the full exercise notebook and get approval BEFORE starting the solution.
+7. **No answer hints in `# YOUR CODE`**: The comment after `# YOUR CODE` must not describe the solution.
+8. **Safety-net cells required**: Any lab output used by a later cell needs a gated fallback cell in the exercise notebook.
+9. **numpy<2 always**: Pin numpy<2 in every install cell.
+10. **API keys via getpass**: Never hardcode API keys. Always use `getpass.getpass()` or `os.environ`.
+11. **Validate after every 5 cells**: Run `python validate_notebooks.py <path> --type exercise` after each batch.
+12. **Plans folder gitignored**: Never commit plan files (except TOPICS.md, TODOS.md, AUDIT.md).
+13. **AI-tells scan before finalizing any notebook**: Run the AI-tells checker on every completed notebook before marking it done. See `/validate-notebooks` for the command.
+14. **After any NotebookEdit, run the source normalization check**: Run `.venv/bin/python3 -c "import json; nb=json.load(open('PATH')); [print('BAD', i, c.get('id')) for i,c in enumerate(nb['cells']) if c['cell_type']=='code' and len(c['source'])>5 and sum(1 for s in c['source'][:20] if len(s)<=2)>=15]"` to confirm no cells were stored char-by-char. If any are found, re-run the normalization script immediately before committing.
 
 ## Workflow (Standard for Every Topic)
 

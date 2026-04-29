@@ -47,6 +47,45 @@
 
 ---
 
+## Topics 6, 7, 9: filesystem-only handoff via S3 PDF download - 2026-04-29
+
+### T679-FIX-001 [RESOLVED 2026-04-29] Replace inline BARCLAYS_DOCS with S3 PDF download + PyMuPDF chunking
+
+**Topic**: topic_06_rag_foundations, topic_07_advanced_rag_web_search, topic_09_capstone
+**Reported**: 2026-04-29
+**Description**: Topics 6, 7, 9 currently source their Barclays product corpus from
+inline Python strings (BARCLAYS_DOCS = [...] hardcoded 7-9 product summaries). This
+breaks the project rule that handoff between topics must be via the filesystem only,
+not via Python globals or inline-replicated content. Each notebook should download
+the canonical PDFs from the public barclays-prompt-eng-data S3 bucket (the same
+files Topic 2 downloads), run the same PyMuPDF clean+chunk pipeline inline, and use
+the resulting chunks. Fail loud if S3 is unreachable; small inline fallback only as
+a last resort with a visible warning. T8 is unchanged (no product corpus needed).
+
+**Files**:
+- exercises/topic_06_rag_foundations/topic_06_rag_foundations.ipynb (cell 5: 23611394, pip cell: eaea89ff)
+- solutions/topic_06_rag_foundations/topic_06_rag_foundations.ipynb (mirror)
+- exercises/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb (cell 5: 5935a476, pip cell: a9a50792)
+- solutions/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb (mirror)
+- exercises/topic_09_capstone/topic_09_capstone.ipynb (cell 5: 1454f38d9b71, pip cell: 2e65d42c1a7d)
+- solutions/topic_09_capstone/topic_09_capstone.ipynb (mirror)
+
+**Status**: resolved
+**Fix applied**: Replaced inline BARCLAYS_DOCS literal in T6 (cell 23611394), T7 (cell 5935a476),
+T9 (cell 1454f38d9b71 - swapped only the Topic 2 chunks block, preserved all downstream
+T3-T8 helpers) with a self-contained S3 download + PyMuPDF clean + chunk pipeline using the
+exact pattern from Topic 2 (load_pdf_from_s3 via requests.get, clean_pdf_text regex pipeline,
+sentence-boundary chunker chunk_size=1500 overlap=200). Two PDFs downloaded:
+barclays_personal_loan_faq.pdf and barclays_credit_card_tnc.pdf. T9 appends 2 capstone-specific
+operational docs (freeze card, Money Worries) inline after the S3 chunks since those
+short procedural snippets are not in the S3 PDFs. Fail-loud on S3 errors with a 3-string
+inline fallback. Pip cells in all 3 topics (eaea89ff, a9a50792, 2e65d42c1a7d) updated to add
+pymupdf==1.27.2.2 and requests. Char-by-char source array bug from NotebookEdit fixed by
+inline normalization after every edit. AI-tells scan: clean on all 6 notebooks. Pair validation
+passed for all 3 topics.
+
+---
+
 ## All Topics: sagemaker SDK version fix - 2026-04-27
 
 ### ALL-FIX-001 [RESOLVED 2026-04-27] Pin sagemaker==2.232.1 in all pip install cells

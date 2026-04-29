@@ -217,7 +217,7 @@
 
 ## Topic 06 - RAG Foundations
 
-- **Status**: done (ALL-FIX-001 sagemaker pin applied 2026-04-27)
+- **Status**: done (T679-FIX-001 filesystem-only handoff applied 2026-04-29)
 - **Day**: Day 2
 - **Slug**: `topic_06_rag_foundations`
 - **Exercise**: `exercises/topic_06_rag_foundations/topic_06_rag_foundations.ipynb`
@@ -255,7 +255,7 @@
 
 ## Topic 07 - Advanced RAG and Web Search
 
-- **Status**: done (ALL-FIX-001 sagemaker pin applied 2026-04-27)
+- **Status**: done (T679-FIX-001 filesystem-only handoff applied 2026-04-29)
 - **Day**: Day 3
 - **Slug**: `topic_07_advanced_rag_web_search`
 - **Exercise**: `exercises/topic_07_advanced_rag_web_search/topic_07_advanced_rag_web_search.ipynb`
@@ -333,7 +333,7 @@
 
 ## Topic 09 - Capstone: Production Customer Service Assistant
 
-- **Status**: done (fixes T9-FIX-004, T9-FIX-007, T9-FIX-008, T9-FIX-009, T9-FIX-012, T9-FIX-013 applied 2026-04-27)
+- **Status**: done (T679-FIX-001 filesystem-only handoff applied 2026-04-29)
 - **Day**: Day 3
 - **Slug**: `topic_09_capstone`
 - **Exercise**: `exercises/topic_09_capstone/topic_09_capstone.ipynb`
@@ -413,3 +413,41 @@
 | 07 | Advanced RAG and Web Search | Day 3 | done |
 | 08 | Ethical Guardrails | Day 3 | done |
 | 09 | Capstone | Day 3 | done |
+| E8 | Extra: Data Engineer Use Case | Extra | planned |
+
+---
+
+## Extra Topic 08 - Data Engineer Use Case
+
+- **Status**: planned
+- **Day**: Extra (post-course showcase / reference)
+- **Slug**: `extra_08_data_engineer_usecase`
+- **Exercise**: `exercises/extra_08_data_engineer_usecase/extra_08_data_engineer_usecase.ipynb`
+- **Solution**: `solutions/extra_08_data_engineer_usecase/extra_08_data_engineer_usecase.ipynb` (optional - recommendation is single notebook in exercises/ only since there are no labs)
+- **Plan**: `plans/extra_08_data_engineer_usecase.md`
+
+### Concepts (re-application of T1-T9 primitives, no new material)
+- Structured Outputs as the right primitive for batch enrichment pipelines
+- Row-level fan-out: classification, PII redaction, RAG-grounded answer, output validation
+- Filesystem-only handoff: rebuild corpus from S3 inline every run
+- tenacity retry + dead-letter pattern for row-level resilience
+- Per-request cost and latency reporting
+- When to use the OpenAI Batch API vs synchronous calls vs threaded parallel sync
+
+### Format
+- SHOWCASE notebook for data engineers, NOT a lab notebook
+- No `None # YOUR CODE` placeholders, no Tier 1/2/3 labs, no verification cells
+- Every cell is a runnable, heavily commented demo
+
+### Key Libraries
+- openai==2.32.0, chromadb==1.5.8, tenacity==9.1.4, pymupdf==1.27.2.2, tiktoken==0.9.0, pandas, boto3, numpy<2
+
+### Manifest (what needs to happen)
+- [x] Plan written at `plans/extra_08_data_engineer_usecase.md`
+- [ ] User decision: single notebook in `exercises/` only, or dual-folder convention
+- [ ] Build showcase notebook
+- [ ] Build diagrams (`pipeline-overview`, `row-enrichment-fanout`, `sync-vs-batch`)
+- [ ] Final validation pass (AI-tells scan, structure check)
+
+### Open Questions
+- [ ] Confirm single-notebook recommendation vs dual exercises/solutions folder layout

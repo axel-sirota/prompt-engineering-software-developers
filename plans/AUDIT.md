@@ -8,6 +8,47 @@
 | 2026-04-27 | ALL-FIX-001 | Pin sagemaker==2.232.1 + boto3 in all pip install cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
 | 2026-04-27 | ALL-FIX-002 | Normalize char-by-char source arrays to line arrays in all 211 code cells | all 9 exercise + 9 solution notebooks | resolved - see detail below |
 | 2026-04-27 | ALL-FIX-005 | Fix S3 bucket name in T02, remove boto3 narrative, replace s3:// hints with HTTPS | T02 (ex+sol), T06/T07/T09 (ex+sol) | resolved - see detail below |
+| 2026-04-29 | T679-FIX-001 | Filesystem-only handoff: replace inline BARCLAYS_DOCS with S3 PDF download + PyMuPDF chunking | T06/T07/T09 (ex+sol) | resolved - see detail below |
+
+## 2026-04-29 - T679-FIX-001: filesystem-only handoff via S3 PDF download
+
+**Topics affected**: topic_06_rag_foundations, topic_07_advanced_rag_web_search, topic_09_capstone (all exercise + solution = 6 notebooks)
+
+**Problem**: Topics 6, 7, 9 sourced their Barclays product corpus from inline Python string literals (`BARCLAYS_DOCS = [...]` with 7-9 hardcoded product summaries). This violated the project rule that handoff between topics must be via the filesystem, not via Python globals or inline-replicated content. Each notebook should download the canonical PDFs from the public `barclays-prompt-eng-data` S3 bucket (the same files Topic 2 downloads), run the same PyMuPDF clean+chunk pipeline inline, and use the resulting chunks. Topic 5 had previously been observed loading from globals which is similarly wrong (left as-is in this fix; T5 does not need a corpus).
+
+**Root cause**: When T6 was first authored, the inline `BARCLAYS_DOCS` was a teaching shortcut to avoid the S3 download in the demo. T7 and T9 copied the same shortcut. Over time this drifted into "the way the corpus is provided" instead of "a fallback when S3 is unreachable", and T9's continuity cell hardcoded 9 docs (7 from T6 + 2 capstone-specific operational notes) which compounded the problem.
+
+**Fix**: Replaced the inline BARCLAYS_DOCS literal in three exercise+solution pairs with a self-contained download-clean-chunk block reusing Topic 2's exact pattern:
+- `_load_pdf_from_s3(key)` via `requests.get` over HTTPS (no IAM credentials needed since the bucket is public-read).
+- `_clean_pdf_text(text)` with the same regex pipeline as T2 cell `afb66ad6`: hyphen line-break fix, page-header strip, whitespace collapse, decoration-line removal.
+- `_chunk_text(text, chunk_size=1500, overlap=200)` with the same sentence-boundary aware chunker as T2 cell `258f7171`.
+
+Two PDFs are downloaded: `barclays_personal_loan_faq.pdf` and `barclays_credit_card_tnc.pdf` (already uploaded to the bucket per `instructor_setup.md`). On any S3 failure the loop prints `[FAIL] {key}: {e}` per file and falls back to a 3-string inline corpus with a visible `!!! WARNING` banner so students immediately know the real corpus did not load.
+
+For T9 specifically, only the Topic 2 BARCLAYS_DOCS block at the top of the continuity cell `1454f38d9b71` was swapped. All downstream T3-T8 helpers (BARCLAYS_SYSTEM_PROMPT, create_chatbot, classify_with_schema, BarclaysChat, count_tokens_in_messages, embed_texts, retrieve, hybrid_answer, detect_pii, should_escalate, etc.) and the final `print("continuity setup complete")` were preserved byte-for-byte. The 2 capstone-specific operational docs (freeze card, Money Worries) are appended inline AFTER the S3 chunks because they are short procedural snippets not present in the S3 PDFs.
+
+Pip install cells were updated in all three topics (`eaea89ff` in T6, `a9a50792` in T7, `2e65d42c1a7d` in T9) to add `pymupdf==1.27.2.2` and `requests` to the install line.
+
+**Cell IDs modified**:
+- T06 ex+sol: `eaea89ff` (pip), `23611394` (BARCLAYS_DOCS block)
+- T07 ex+sol: `a9a50792` (pip), `5935a476` (BARCLAYS_DOCS block + helpers + collection setup)
+- T09 ex+sol: `2e65d42c1a7d` (pip), `1454f38d9b71` (Topic 2 chunks block only - downstream T3-T8 helpers untouched)
+
+**Char-by-char source-array bug**: After NotebookEdit calls, the modified cells reverted to char-by-char source storage (the same bug fixed in ALL-FIX-002). Ran the inline normalization snippet (`source = ''.join(items).splitlines(keepends=True)`) on every modified cell after each batch of edits. Final source-array sanity check: zero char-by-char cells across all 6 notebooks.
+
+**Validation**:
+- T06 exercise: 1 false-positive error (Tier 3 lab has no `None` placeholder by design - this is correct per CLAUDE.md tier rules).
+- T06 solution: clean.
+- T06 pair check: 27 cells matched on both sides, types match.
+- T07 exercise: clean (1 warning about no labs detected - false positive, labs are present).
+- T07 solution: clean.
+- T07 pair check: 27 cells matched on both sides, types match.
+- T09 exercise: clean.
+- T09 solution: clean.
+- T09 pair check: 29 cells matched on both sides, types match.
+- AI-tells scan: clean on all 6 notebooks (no em-dashes, en-dashes, Unicode multiplication, or bare `---` separators).
+
+**Files unchanged**: T08 (no Barclays product corpus needed - guardrails-only). T01-T05 not in scope.
 
 ## 2026-04-27 - ALL-FIX-002: char-by-char source storage normalization
 

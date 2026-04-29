@@ -419,11 +419,11 @@
 
 ## Extra Topic 08 - Data Engineer Use Case
 
-- **Status**: planned
+- **Status**: done (built 2026-04-29 - single notebook, no labs, 26 cells)
 - **Day**: Extra (post-course showcase / reference)
 - **Slug**: `extra_08_data_engineer_usecase`
 - **Exercise**: `exercises/extra_08_data_engineer_usecase/extra_08_data_engineer_usecase.ipynb`
-- **Solution**: `solutions/extra_08_data_engineer_usecase/extra_08_data_engineer_usecase.ipynb` (optional - recommendation is single notebook in exercises/ only since there are no labs)
+- **Solution**: NONE - single-notebook locked decision (no labs, no None placeholders, solutions mirror would be byte-identical)
 - **Plan**: `plans/extra_08_data_engineer_usecase.md`
 
 ### Concepts (re-application of T1-T9 primitives, no new material)
@@ -444,10 +444,10 @@
 
 ### Manifest (what needs to happen)
 - [x] Plan written at `plans/extra_08_data_engineer_usecase.md`
-- [ ] User decision: single notebook in `exercises/` only, or dual-folder convention
-- [ ] Build showcase notebook
-- [ ] Build diagrams (`pipeline-overview`, `row-enrichment-fanout`, `sync-vs-batch`)
-- [ ] Final validation pass (AI-tells scan, structure check)
+- [x] User decision (2026-04-29): single notebook in `exercises/` only
+- [x] Build showcase notebook (26 cells, validation clean, AI-tells clean, syntax clean)
+- [ ] Build diagrams (`pipeline-overview`, `row-enrichment-fanout`, `sync-vs-batch`) - optional, can be done later via `/build-diagrams`
+- [x] Final validation pass (AI-tells scan, structure check, syntax check on all 14 code cells)
 
 ### Open Questions
-- [ ] Confirm single-notebook recommendation vs dual exercises/solutions folder layout
+- [x] Single-notebook layout confirmed; no `solutions/` mirror (resolved 2026-04-29)
